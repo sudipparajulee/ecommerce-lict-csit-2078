@@ -10,13 +10,15 @@
             <th class="p-2 border border-gray-50">Category Name</th>
             <th class="p-2 border border-gray-50">Action</th>
         </tr>
+        @foreach($categories as $category)
         <tr class="text-center">
-            <td class="p-2 border border-gray-100">1</td>
-            <td class="p-2 border border-gray-100">Category 1</td>
+            <td class="p-2 border border-gray-100">{{$category->order}}</td>
+            <td class="p-2 border border-gray-100">{{$category->name}}</td>
             <td class="p-2 border border-gray-100">
                 <a href="" class="bg-blue-600 text-white px-2 py-1 rounded-md">Edit</a>
                 <a href="" class="bg-red-600 text-white px-2 py-1 rounded-md">Delete</a>
             </td>
         </tr>
+        @endforeach
     </table>
 @endsection
