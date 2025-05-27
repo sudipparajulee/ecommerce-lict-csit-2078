@@ -15,8 +15,8 @@
             <td class="p-2 border border-gray-100">{{$category->order}}</td>
             <td class="p-2 border border-gray-100">{{$category->name}}</td>
             <td class="p-2 border border-gray-100">
-                <a href="" class="bg-blue-600 text-white px-2 py-1 rounded-md">Edit</a>
-                <a href="" class="bg-red-600 text-white px-2 py-1 rounded-md">Delete</a>
+                <a href="{{route('categories.edit',$category->id)}}" class="bg-blue-600 text-white px-2 py-1 rounded-md">Edit</a>
+                <a href="{{route('categories.destroy',$category->id)}}" class="bg-red-600 text-white px-2 py-1 rounded-md">Delete</a>
             </td>
         </tr>
         @endforeach

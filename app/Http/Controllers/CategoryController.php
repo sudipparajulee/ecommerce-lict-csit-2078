@@ -28,4 +28,27 @@ class CategoryController extends Controller
         Category::create($data);
         return redirect()->route('categories.index');
     }
+
+    public function edit($id)
+    {
+        $category = Category::find($id);
+        return view('categories.edit',compact('category'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $data = $request->validate([
+            'order' => 'required|numeric',
+            'name' => 'required'
+        ]);
+        $category = Category::find($id);
+        $category->update($data);
+        return redirect()->route('categories.index');
+    }
+
+    public function destroy($id)
+    {
+        Category::find($id)->delete();
+        return redirect()->route('categories.index');
+    }
 }
