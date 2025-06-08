@@ -15,20 +15,22 @@
             <th class="p-2 border border-gray-50">Category</th>
             <th class="p-2 border border-gray-50">Action</th>
         </tr>
+        @foreach($products as $product)
         <tr class="text-center">
-            <td class="p-2 border border-gray-100">Picture</td>
-            <td class="p-2 border border-gray-100">Product Name</td>
-            <td class="p-2 border border-gray-100">100</td>
-            <td class="p-2 border border-gray-100">80</td>
-            <td class="p-2 border border-gray-100">this is description</td>
-            <td class="p-2 border border-gray-100">5</td>
-            <td class="p-2 border border-gray-100">Electronics</td>
             <td class="p-2 border border-gray-100">
-                <a href="" class="bg-blue-600 text-white px-2 py-1 rounded-md">Edit</a>
-                <a href=""
-                    onclick="return confirm('Are you sure to delete?');"
-                    class="bg-red-600 text-white px-2 py-1 rounded-md">Delete</a>
+                <img src="{{asset('images/products/'.$product->photopath)}}" alt="" class="h-16">
+            </td>
+            <td class="p-2 border border-gray-100">{{$product->name}}</td>
+            <td class="p-2 border border-gray-100">{{$product->price}}</td>
+            <td class="p-2 border border-gray-100">{{$product->discounted_price ?? '--'}}</td>
+            <td class="p-2 border border-gray-100">{{$product->description}}</td>
+            <td class="p-2 border border-gray-100">{{$product->stock}}</td>
+            <td class="p-2 border border-gray-100">{{$product->category->name}}</td>
+            <td class="p-2 border border-gray-100">
+                <a href="{{route('products.edit',$product->id)}}" class="bg-blue-600 text-white px-2 py-1 rounded-md">Edit</a>
+                <a href="" onclick="return confirm('Are you sure to delete?');" class="bg-red-600 text-white px-2 py-1 rounded-md">Delete</a>
             </td>
         </tr>
+        @endforeach
     </table>
 @endsection

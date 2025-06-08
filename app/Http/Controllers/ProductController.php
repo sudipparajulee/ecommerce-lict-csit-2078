@@ -10,7 +10,8 @@ class ProductController extends Controller
 {
     public function index()
     {
-        return view('products.index');
+        $products = Product::all();
+        return view('products.index',compact('products'));
     }
 
     public function create()
@@ -45,7 +46,9 @@ class ProductController extends Controller
 
     public function edit($id)
     {
-
+        $product = Product::findOrFail($id);
+        $categories = Category::orderBy('order', 'asc')->get();
+        return view('products.edit', compact('product', 'categories'));
     }
 
     public function update(Request $request, $id)
