@@ -28,7 +28,7 @@
             <td class="p-2 border border-gray-100">{{$product->category->name}}</td>
             <td class="p-2 border border-gray-100">
                 <a href="{{route('products.edit',$product->id)}}" class="bg-blue-600 text-white px-2 py-1 rounded-md">Edit</a>
-                <a href="" onclick="return confirm('Are you sure to delete?');" class="bg-red-600 text-white px-2 py-1 rounded-md">Delete</a>
+                <a href="{{route('products.destroy',$product->id)}}" onclick="return confirm('Are you sure to delete?');" class="bg-red-600 text-white px-2 py-1 rounded-md">Delete</a>
             </td>
         </tr>
         @endforeach
