@@ -13,8 +13,9 @@ class PagesController extends Controller
         return view('welcome',compact('latestproducts'));
     }
 
-    public function about()
+    public function viewproduct($id)
     {
-        return view('about');
+        $product = Product::findOrFail($id);
+        return view('viewproduct', compact('product'));
     }
 }

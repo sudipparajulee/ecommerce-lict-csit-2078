@@ -18,7 +18,7 @@
             @foreach ($categories as $category)
                 <a href="">{{$category->name}}</a>
             @endforeach
-            <a href="">Login</a>
+            <a href="/login">Login</a>
         </div>
     </nav>
 
