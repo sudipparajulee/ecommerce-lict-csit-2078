@@ -16,7 +16,7 @@
         <div class="flex gap-3">
             <a href="/">Home</a>
             @foreach ($categories as $category)
-                <a href="">{{$category->name}}</a>
+                <a href="{{route('categoryproduct',$category->id)}}">{{$category->name}}</a>
             @endforeach
             <a href="/login">Login</a>
         </div>

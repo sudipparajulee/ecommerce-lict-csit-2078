@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [PagesController::class, 'home']);
 Route::get('/viewproduct/{id}', [PagesController::class, 'viewproduct'])->name('viewproduct');
+Route::get('/categoryproduct/{catid}', [PagesController::class, 'categoryproduct'])->name('categoryproduct');
 
 
 Route::get('/dashboard',[DashboardController::class,'dashboard'])->middleware(['auth', 'verified'])->name('dashboard');
