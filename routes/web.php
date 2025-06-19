@@ -12,9 +12,9 @@ Route::get('/viewproduct/{id}', [PagesController::class, 'viewproduct'])->name('
 Route::get('/categoryproduct/{catid}', [PagesController::class, 'categoryproduct'])->name('categoryproduct');
 
 
-Route::get('/dashboard',[DashboardController::class,'dashboard'])->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard',[DashboardController::class,'dashboard'])->middleware(['auth', 'isadmin'])->name('dashboard');
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth','isadmin'])->group(function () {
     Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
     Route::get('/categories/create', [CategoryController::class, 'create'])->name('categories.create');
     Route::post('/categories/store', [CategoryController::class, 'store'])->name('categories.store');

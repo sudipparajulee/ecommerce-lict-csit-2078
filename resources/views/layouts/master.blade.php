@@ -18,7 +18,15 @@
             @foreach ($categories as $category)
                 <a href="{{route('categoryproduct',$category->id)}}">{{$category->name}}</a>
             @endforeach
-            <a href="/login">Login</a>
+            @auth
+                <a href="">Hi, {{auth()->user()->name}}</a>
+                <form action="{{ route('logout') }}" method="POST" class="inline">
+                    @csrf
+                    <button type="submit" class="text-white">Logout</button>
+                </form>
+            @else
+                <a href="/login">Login</a>
+            @endauth
         </div>
     </nav>
 
