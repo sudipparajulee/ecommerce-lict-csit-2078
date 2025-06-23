@@ -15,12 +15,16 @@
                     @endif
                 </p>
                 <p>In Stock: {{$product->stock}}</p>
-                <div class="mt-4 flex">
-                    <span class="bg-gray-300 px-4 py-1 cursor-pointer" id="decrement">-</span>
-                    <input type="text" name="quantity" id="quantity" value="1" min="1" class="border w-12 text-center p-0 py-1" readonly>
-                    <span class="bg-gray-300 px-4 py-1 cursor-pointer" id="increment">+</span>
-                </div>
-                <button type="submit" class="bg-blue-600 text-white px-3 py-1 rounded mt-4">Add to Cart</button>
+                <form action="{{route('cart.store')}}" method="POST">
+                    @csrf
+                    <input type="hidden" name="product_id" value="{{$product->id}}">
+                    <div class="mt-4 flex">
+                        <span class="bg-gray-300 px-4 py-1 cursor-pointer" id="decrement">-</span>
+                        <input type="text" name="quantity" id="quantity" value="1" min="1" class="border w-12 text-center p-0 py-1" readonly>
+                        <span class="bg-gray-300 px-4 py-1 cursor-pointer" id="increment">+</span>
+                    </div>
+                    <button type="submit" class="bg-blue-600 text-white px-3 py-1 rounded mt-4">Add to Cart</button>
+                </form>
         </div>
         <div>
             <p>Free Delivery</p>

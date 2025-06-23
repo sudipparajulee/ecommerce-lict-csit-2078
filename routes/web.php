@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PagesController;
@@ -10,6 +11,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [PagesController::class, 'home']);
 Route::get('/viewproduct/{id}', [PagesController::class, 'viewproduct'])->name('viewproduct');
 Route::get('/categoryproduct/{catid}', [PagesController::class, 'categoryproduct'])->name('categoryproduct');
+
+Route::middleware('auth')->group(function(){
+    Route::post('/cart/store', [CartController::class, 'store'])->name('cart.store');
+    Route::get('/mycart', [PagesController::class, 'mycart'])->name('mycart');
+});
 
 
 Route::get('/dashboard',[DashboardController::class,'dashboard'])->middleware(['auth', 'isadmin'])->name('dashboard');
