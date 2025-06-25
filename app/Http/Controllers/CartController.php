@@ -30,7 +30,29 @@ class CartController extends Controller
 
         Cart::create($data);
         return back()->with('success', 'Product added to cart successfully.');
-
-
     }
+
+    public function update(Request $request, $cartid)
+    {
+        $data = $request->validate([
+            'quantity' => 'required|integer|min:1',
+        ]);
+
+        $cart = Cart::findOrFail($cartid);
+        $cart->quantity = $data['quantity'];
+        $cart->save();
+
+        return back()->with('success', 'Cart updated successfully.');
+    }
+
+    public function destroy(Request $request)
+    {
+        $cartid = $request->input('id');
+        $cart = Cart::findOrFail($cartid);
+        $cart->delete();
+
+        return back()->with('success', 'Product removed from cart successfully.');
+    }
+
+
 }

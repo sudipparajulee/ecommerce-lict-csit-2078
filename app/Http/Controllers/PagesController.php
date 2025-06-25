@@ -38,4 +38,10 @@ class PagesController extends Controller
         $carts = Cart::where('user_id', $userid)->get();
         return view('cart', compact('carts'));
     }
+
+    public function checkout($cartid)
+    {
+        $cart = Cart::findOrFail($cartid);
+        return view('checkout', compact('cart'));
+    }
 }

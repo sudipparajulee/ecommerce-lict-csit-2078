@@ -15,6 +15,9 @@ Route::get('/categoryproduct/{catid}', [PagesController::class, 'categoryproduct
 Route::middleware('auth')->group(function(){
     Route::post('/cart/store', [CartController::class, 'store'])->name('cart.store');
     Route::get('/mycart', [PagesController::class, 'mycart'])->name('mycart');
+    Route::get('/checkout/{cartid}', [PagesController::class, 'checkout'])->name('checkout');
+    Route::post('/cart/update/{cartid}', [CartController::class, 'update'])->name('cart.update');
+    Route::post('/cart/destroy', [CartController::class, 'destroy'])->name('cart.destroy');
 });
 
 
