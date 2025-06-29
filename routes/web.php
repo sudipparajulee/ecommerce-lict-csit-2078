@@ -3,6 +3,7 @@
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
@@ -18,6 +19,9 @@ Route::middleware('auth')->group(function(){
     Route::get('/checkout/{cartid}', [PagesController::class, 'checkout'])->name('checkout');
     Route::post('/cart/update/{cartid}', [CartController::class, 'update'])->name('cart.update');
     Route::post('/cart/destroy', [CartController::class, 'destroy'])->name('cart.destroy');
+
+    //Order
+    Route::post('/order/store/{cartid}', [OrderController::class, 'store'])->name('order.store');
 });
 
 

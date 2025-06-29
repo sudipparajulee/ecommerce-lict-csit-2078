@@ -24,7 +24,10 @@
                     </div>
                 </div>
                 <div class="grid gap-4">
-                    <a href="{{ route('checkout', $cart->id) }}" class="bg-blue-600 block text-center text-white px-4 py-2 rounded-lg">Cash On delivery</a>
+                    <form action="{{route('order.store', $cart->id)}}" method="POST">
+                        @csrf
+                        <button type="submit" class="bg-blue-600 block text-center text-white px-4 py-2 rounded-lg">Cash On delivery</button>
+                    </form>
                     <form action="https://rc-epay.esewa.com.np/api/epay/main/v2/form" method="POST">
                         <input type="hidden" id="amount" name="amount" value="100" required>
                         <input type="hidden" id="tax_amount" name="tax_amount" value ="0" required>
