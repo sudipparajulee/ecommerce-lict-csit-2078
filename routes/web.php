@@ -22,6 +22,7 @@ Route::middleware('auth')->group(function(){
 
     //Order
     Route::post('/order/store/{cartid}', [OrderController::class, 'store'])->name('order.store');
+    Route::get('/order/esewa/{cartid}', [OrderController::class, 'store_esewa'])->name('order.esewa');
 });
 
 
@@ -42,6 +43,10 @@ Route::middleware(['auth','isadmin'])->group(function () {
     Route::get('/products/{id}/edit', [ProductController::class, 'edit'])->name('products.edit');
     Route::post('/products/{id}/update', [ProductController::class, 'update'])->name('products.update');
     Route::get('/products/{id}/destroy', [ProductController::class, 'destroy'])->name('products.destroy');
+
+    //Order
+    Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
+    Route::get('/orders/status/{orderid}/{status}', [OrderController::class, 'update_status'])->name('orders.status');
 });
 
 Route::middleware('auth')->group(function () {
