@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Cart;
 use App\Models\Order;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class OrderController extends Controller
 {
@@ -20,14 +21,36 @@ class OrderController extends Controller
             'phone' => '98798987',
             'address' => 'Chitwan',
         ];
-        Order::create($data);
+        $order = Order::create($data);
         $cart->delete();
         return redirect()->route('mycart')->with('success', 'Order placed successfully!');
     }
 
     public function store_esewa(Request $request, $cartid)
     {
-        dd($request->all());
+        $data = $request->data;
+        //decode data
+        $data = base64_decode($data);
+        //convert to array
+        $data = json_decode($data, true);
+        if($data['status'] == 'COMPLETE')
+        {
+            $cart = Cart::find($cartid);
+            $orderdata = [
+                'user_id' => auth()->id(),
+                'product_id' => $cart->product_id,
+                'price' => $cart->product->discounted_price != '' ? $cart->product->discounted_price : $cart->product->price,
+                'quantity' => $cart->quantity,
+                'name' => $cart->user->name,
+                'phone' => '98798987',
+                'address' => 'Chitwan',
+                'payment_method' => 'eSewa',
+                'payment_status' => 'Paid'
+            ];
+            Order::create($orderdata);
+            $cart->delete();
+            return redirect()->route('mycart')->with('success', 'Order placed successfully!');
+        }
     }
 
     public function index()
@@ -41,6 +64,15 @@ class OrderController extends Controller
         $order = Order::find($orderid);
         $order->status = $status;
         $order->save();
+        //Send email to user
+        $msg = [
+            'name' => $order->name,
+            'status' => $status,
+        ];
+        Mail::send('emails.orderstatus', $msg, function($message) use ($order) {
+            $message->to($order->user->email)
+                    ->subject('Order Status Update');
+        });
         return back()->with('success', 'Order status updated successfully!');
     }
 }
