@@ -31,6 +31,13 @@
     </div>
     <nav class="flex justify-between items-center py-3 px-12 bg-blue-600 text-white">
         <h1 class="font-bold text-lg">LOGO</h1>
+        <form action="{{route('search')}}">
+            <input type="search" name="query" id="" placeholder="Search products" minlength="2"
+                    class="px-3 py-2 text-black rounded min-w-[300px]" value="{{request('query')}}">
+            <button type="submit" class="bg-white text-blue-600 px-4 py-2 rounded hover:bg-gray-200 transition duration-200">
+                Search
+            </button>
+        </form>
         <div class="flex gap-3">
             <a href="/">Home</a>
             @foreach ($categories as $category)

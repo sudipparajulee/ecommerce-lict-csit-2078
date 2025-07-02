@@ -62,6 +62,17 @@ class OrderController extends Controller
     public function update_status($orderid, $status)
     {
         $order = Order::find($orderid);
+        //update the stock
+        if(($order->status == 'Pending' || $order->status == 'Cancelled') && ($status == 'Processing' || $status == 'Delivered')) {
+            $order->product->stock -= $order->quantity;
+            $order->product->save();
+        }
+        if($order->status == 'Processing' || $order->status == 'Delivered') {
+            if($status == 'Pending' || $status == 'Cancelled') {
+                $order->product->stock += $order->quantity;
+                $order->product->save();
+            }
+        }
         $order->status = $status;
         $order->save();
         //Send email to user

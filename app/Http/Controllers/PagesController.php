@@ -36,6 +36,14 @@ class PagesController extends Controller
     {
         $userid = auth()->id();
         $carts = Cart::where('user_id', $userid)->get();
+        foreach($carts as $cart)
+        {
+            if($cart->product->stock < $cart->quantity)
+            {
+                $cart->quantity = $cart->product->stock;
+                $cart->save();
+            }
+        }
         return view('cart', compact('carts'));
     }
 
@@ -43,5 +51,12 @@ class PagesController extends Controller
     {
         $cart = Cart::findOrFail($cartid);
         return view('checkout', compact('cart'));
+    }
+
+    public function search(Request $request)
+    {
+        $qry = $request->input('query');
+        $products = Product::where('name','like','%'.$qry.'%')->get();
+        return view('search', compact('products'));
     }
 }
