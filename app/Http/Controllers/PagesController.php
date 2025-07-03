@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cart;
 use App\Models\Category;
+use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -45,6 +46,24 @@ class PagesController extends Controller
             }
         }
         return view('cart', compact('carts'));
+    }
+
+    public function myorders()
+    {
+        $userid = auth()->id();
+        $orders = Order::where('user_id', $userid)->latest()->get();
+        return view('myorders', compact('orders'));
+    }
+
+    public function cancelorder(Request $request)
+    {
+        $orderid = $request->input('orderid');
+        $order = Order::where('id', $orderid)->where('user_id', auth()->id())->first();
+        if($order) {
+            $order->status = 'Cancelled';
+            $order->save();
+            return redirect()->back()->with('success', 'Order cancelled successfully.');
+        }
     }
 
     public function checkout($cartid)

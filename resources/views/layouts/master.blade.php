@@ -17,9 +17,10 @@
             <a href="">Hi, {{auth()->user()->name}}</a>
             <a href="{{route('mycart')}}" class="text-white relative">My Cart
                 <span class="absolute -top-2 -right-3 bg-yellow-500 text-black rounded-full px-1 text-xs">
-                    2
+                    {{auth()->user()->carts->count()}}
                 </span>
             </a>
+            <a href="{{route('myorders')}}">My Orders</a>
             <form action="{{ route('logout') }}" method="POST" class="inline">
                 @csrf
                 <button type="submit" class="text-white">Logout</button>
