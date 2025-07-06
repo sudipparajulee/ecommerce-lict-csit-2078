@@ -7,7 +7,7 @@
                 <i class="ri-user-line"></i>
                 Total Users
             </h3>
-            <p class="text-4xl text-right font-bold">55</p>
+            <p class="text-4xl text-right font-bold">{{$totalusers}}</p>
         </div>
 
         <div class="bg-red-100 p-4 shadow-md rounded-lg">
@@ -15,7 +15,7 @@
                 <i class="ri-shopping-cart-2-line"></i>
                 Total Orders
             </h3>
-            <p class="text-4xl text-right font-bold">55</p>
+            <p class="text-4xl text-right font-bold">{{$totalorders}}</p>
         </div>
 
         <div class="bg-green-100 p-4 shadow-md rounded-lg">
@@ -23,7 +23,7 @@
                 <i class="ri-exchange-dollar-line"></i>
                 Total Revenue
             </h3>
-            <p class="text-4xl text-right font-bold">55</p>
+            <p class="text-4xl text-right font-bold">Rs. {{$totalrevenue}}</p>
         </div>
 
         <div class="bg-yellow-100 p-4 shadow-md rounded-lg">
@@ -47,8 +47,30 @@
                 <i class="ri-shopping-cart-line"></i>
                 Pending Orders
             </h3>
-            <p class="text-4xl text-right font-bold">55</p>
+            <p class="text-4xl text-right font-bold">{{$totalpendingorders}}</p>
+        </div>
+
+        <div>
+            <canvas id="myChart"></canvas>
         </div>
 
     </div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+  const ctx = document.getElementById('myChart');
+
+  new Chart(ctx, {
+    type: 'pie',
+    data: {
+      labels: {!! $allcategories !!},
+      datasets: [{
+        label: '# of Products',
+        data: {!! $allproducts !!},
+        borderWidth: 1
+      }]
+    },
+  });
+</script>
 @endsection

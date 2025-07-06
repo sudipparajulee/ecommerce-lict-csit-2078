@@ -74,6 +74,7 @@ class OrderController extends Controller
             }
         }
         $order->status = $status;
+        $order->payment_status = $status == 'Delivered' ? 'Paid' : ($order->payment_method == 'eSewa' ? 'Paid' : 'Unpaid');
         $order->save();
         //Send email to user
         $msg = [
