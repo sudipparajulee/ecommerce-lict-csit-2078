@@ -13,6 +13,8 @@ class ProductController extends Controller
         $products = Product::all();
         return response()->json([
             'data' => $products,
+            'message' => 'Products retrieved successfully',
+            'success' => true,
         ]);
     }
 }
